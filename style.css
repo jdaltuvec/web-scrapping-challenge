@@ -1,0 +1,89 @@
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+	padding-top: 40px;
+}
+
+.container {
+	padding-top: 10px;
+	padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+
+.flex-column { 
+   max-width : 480px;
+}
+
+/*These are the link cards to other pages*/
+.card-main-img-top {
+	width: 50%;
+	vertical-align: middle;
+	height: auto;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bgimage {
+  width:100%;
+  height:500px;
+  padding: 50px 50px;
+  background: url('https://www.pixelstalk.net/wp-content/uploads/images2/Mars-wallpaper-1920x1080.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bgimage h1 {
+	color: white;
+	text-shadow: 1px 1px #333;
+	text-align: center;
+	font-weight: bold;
+	font-size: 60px;
+	
+}
+
+.bgimage p {
+	 color: white;
+	 text-shadow: 1px 1px #333;
+	 font-size: 18px;
+	 text-align: center; 
+	 top-margin: 50%;
+}
+
+
+.content-section-white {
+  width:100%;
+  height:450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-section-color {
+  width:100%;
+  height:auto;
+  background: #007bff;
+  padding: 50px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*These are the plot images in the individual pages*/
+.big-plot { 
+   border:5px solid #efefef;
+}
+
+
+footer {
+	padding-top: 150px;
+}

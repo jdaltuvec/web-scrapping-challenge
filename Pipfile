@@ -14,6 +14,7 @@ re = "*"
 flask = "*"
 pymongo = "*"
 lxml = "*"
+json = "*"
 
 [requires]
 python_version = "3.7"

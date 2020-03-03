@@ -23,7 +23,7 @@ def scrape():
 	jpl_mars_r = requests.get("https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars").text
 	soup = BeautifulSoup(jpl_mars_r, 'html.parser')
 
-	feaured_image_url = "www.jpl.nasa.gov" + soup.find_all('a', class_="fancybox")[0]["data-fancybox-href"]
+	feaured_image_url = "https://www.jpl.nasa.gov" + soup.find_all('a', class_="fancybox")[0]["data-fancybox-href"]
 
 	mars_scrapped["featured_img"] = feaured_image_url
 
@@ -38,8 +38,8 @@ def scrape():
 
 
 	# Mars Facts
-	mars_facts_df = pd.read_html("http://space-facts.com/mars/")[0]
-	mars_facts = mars_facts_df.to_html(index=True, header=True)
+	mars_facts_df = pd.read_html("http://space-facts.com/mars/")[0].rename(columns={0:"Description", 1:"Values"})
+	mars_facts = mars_facts_df.to_html(index=False, header=True, classes="table")
 
 	mars_scrapped["mars_facts"] = mars_facts
 
@@ -48,13 +48,9 @@ def scrape():
 	mars_hemispheres_r = requests.get("https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars").text
 	soup = BeautifulSoup(mars_hemispheres_r, 'html.parser')
 
-	hemispheres = [{'title': e.text.strip(' Enhanced'), 'img_url':("https://astrogeology.usgs.gov" + e['href'])} for e in soup.find_all(class_="itemLink product-item")]
+	hemispheres = [{'title': e.text.strip(' Enhanced'), 'img_url':("https://" + "astropedia." + "astrogeology.usgs.gov" + e['href'] + '.tif/full.jpg').replace("search/map", "download")} for e in soup.find_all(class_="itemLink product-item")]
 	
 	mars_scrapped["mars_hemispheres"] = hemispheres
 
 	### Printing dict ###
 	return mars_scrapped
-
-
-if __name__ == "__main__":
-    app.run(debug=True)

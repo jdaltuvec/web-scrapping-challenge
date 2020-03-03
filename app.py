@@ -1,7 +1,8 @@
 # Import dependencies
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 import scrape_mars
 import pymongo
+from pprint import pprint
 
 # Create an instance of our Flask app.
 app = Flask(__name__)
@@ -15,28 +16,25 @@ client = pymongo.MongoClient(conn)
 # Connect to a database. Will create one if not already available.
 db = client.mars_db
 
-# Drops collection if available to remove duplicates
-db.mars.drop()
-
 
 # Set route to scrape
 @app.route('/scrape')
 def scrape():
+    # Drops collection if available to remove duplicates
+    db.mars.drop()
+    
     s = scrape_mars.scrape()
     db.mars.insert(s)
-    return jsonify(list(db.mars.find()))
+    return redirect("/", code=302)
 
 
 # Set route
-# @app.route('/')
-# def index():
-#     # Store the entire team collection in a list
-
-#     mars = list(db.mars.find())
-#     print(mars)
-
-#     # Return the template with the list passed in
-#     return render_template('index.html', mars=mars)
+@app.route('/')
+def index():
+    mars_data = list(db.mars.find())
+    print(mars_data)
+    # Return the template with the list passed in
+    return render_template('index.html', mars_data=mars_data)
 
 
 if __name__ == "__main__":

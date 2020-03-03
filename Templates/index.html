@@ -3,24 +3,23 @@
 
 <head>
   <title>Mission to Mars</title>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="web-scrapping-challenge/style.css">
 </head>
 
 <body>
 
  <!-- Hero Section -->
+
 <section class="bgimage">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1 class="font-weight-light">Mission to Mars</h1>
         <br/>
-        <p class="lead">Bla bla bloody bla</p>
-        <p><a href="#main" class="btn btn-primary btn-large">Scrape »</a></p>
+        <p class="lead">Your one stop shop for all the latest updates on Mars</p>
+        <p><a href="/scrape" class="btn btn-primary btn-large">Click to Scrape Mars »</a></p>
+        <br/>
       </div>
         
       </div>
@@ -28,57 +27,132 @@
   </div>
 </section>
 
-<!-- News with one col-->
-<section class="content-section-white"> 
+<!-- Mars News-->
+<section class="content-section-white" id="main"> 
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <br/>
       <h2>Latest Mars News</h2>
+      <hr/>
     </div>
   </div>  
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <br>
-      <p> Reinvent mesh, "integrated, enable transform wireless life-hacks web-enabled e-commerce killer infomediaries podcasting reinvent," ubiquitous optimize design bleeding-edge podcasts syndicate. Visionary implement, "harness infrastructures ecologies strategic web-readiness, harness markets cutting-edge." Integrate transition innovate blogging markets user-contributed mesh, reintermediate citizen-media relationships integrate utilize? Cross-media metrics plug-and-play harness reinvent strategize incubate, post open-source. Mindshare user-centred wireless best-of-breed harness, drive." Tagclouds, "metrics partnerships customized intuitive," communities, plug-and-play cross-media bandwidth, efficient scalable beta-test, "reinvent optimize.</p>
+      <h4>{{ mars_data[0].mars_news_title }}</h4>
+      <p>{{ mars_data[0].mars_news_p }} Source: <a href=https://mars.nasa.gov/news/>NASA Mars News Site </a></p>
     </div>
   </div>
 </div>
 </section>
 
 
-<!-- Featured image, current weather and facts -->
+<!-- Mars featured image, current weather and facts -->
+<section class="bgimage2">
+  <div class="container-fluid">
+    <div class="row">
 
-<section class="content-section-white"> 
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <br/>
+        <h2>Featured Mars Image</h2>
+        <small class="text-muted">(Source: <a href="https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars">Nasa JPL Featured Space Image)</a></small>
+        <br>
+        <img src='{{mars_data[0].featured_img}}' class="img-frame" />
+        <br>
+
+        <br/>
+        <h2>Current Weather on Mars</h2>
+        <small class="text-muted">(Source: <a href="https://twitter.com/marswxreport?lang=en">Mars Weather twitter account)</a></small>
+        <br>
+        <i>{{ mars_data[0].mars_weather }}</i>
+
+      </div>
+
+       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <br/>
+        <h2>Mars Facts</h2>
+        <small class="text-muted">(Source: <a href=http://space-facts.com/mars/> Mars Facts webpage)</a></small>
+        <br>
+        <table class=”table table-striped table-dark”> {{ mars_data[0].mars_facts | safe }} </table>
+      </div>
+  
+
+     
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Mars hemispheres -->
+<br/>
+
 <div class="container">
-
   <div class="row">
-    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-      <br/>
-      <h2>Featured Mars Image</h2>
-    </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-      <br/>
-      <h2>Current weather on mars</h2>
-      <p>Reinvent mesh, "integrated, enable transform wireless life-hacks web-enabled e-commerce killer infomediaries podcasting reinvent," ubiquitous optimize design bleeding-edge podcasts syndicate. Visionary implement, "harness infrastructures ecologies</p>
-    </div>
-  </div>
+      <div class="col-lg-12">
+        <h2>Mars Hemispheres</h2> 
+        <hr/>
+        <p>Ever wondered how Mar's hemispheres are looking like, like right now? Courtesy of the <a href=https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars>USGS Astrogeology sit.</a></p> 
+      </div> 
+</div> 
 
-  <div class="row">
-    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-      <br>
-      <!-- just a placeholder image -->
-      <img src='https://hdwallpaperim.com/wp-content/uploads/2017/08/22/384397-space_art-digital_art-planet-Mars-748x459.jpg'/>
-    </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-      <br/>
-      <h2>Mars Facts</h2>
-      <p>Reinvent mesh, "integrated, enable transform wireless life-hacks web-enabled e-commerce killer infomediaries podcasting reinvent," ubiquitous optimize design bleeding-edge podcasts syndicate. Visionary implement, "harness infrastructures ecologies</p>
-    </div>
+<section class="cards">
+  <div class="container">
+
+   <div class="d-flex flex-row align-content-center flex-wrap">
+
+        <div class="card lg-6 md-12" style="width: 18rem;">
+          <img class="card-img-top" src="{{ mars_data[0].mars_hemispheres[0].img_url }}" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">{{ mars_data[0].mars_hemispheres[0].title }}</p>
+          </div>
+        </div>
+
+        <div class="card lg-6 md-12" style="width: 18rem;">
+          <img class="card-img-top" src="{{ mars_data[0].mars_hemispheres[1].img_url }}" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">{{ mars_data[0].mars_hemispheres[1].title }}</p>
+          </div>
+        </div>
+   </div>
+
+  <div class="d-flex flex-row align-content-center flex-wrap">
+
+      <div class="card lg-6 md-12" style="width: 18rem;">
+          <img class="card-img-top" src="{{ mars_data[0].mars_hemispheres[2].img_url }}" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">{{ mars_data[0].mars_hemispheres[2].title }}</p>
+          </div>
+      </div>
+
+    <!-- <div class="d-flex flex-column col-lg-6 col-md-6 col-sm-12 col-xs-12"> -->
+      <div class="card lg-6 md-12" style="width: 18rem;">
+          <img class="card-img-top" src="{{ mars_data[0].mars_hemispheres[3].img_url }}" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">{{ mars_data[0].mars_hemispheres[3].title }}</p>
+          </div>
+      </div>
+
   </div>
 </div>
 </section>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 </body>
 
-</html>
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="index.html"> David Altuve | UT Data Bootcamp</a>
+  </div>
+
+</footer>
+
+

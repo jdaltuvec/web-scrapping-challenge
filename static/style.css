@@ -162,6 +162,31 @@ h1 {
 }
 /* End */
 
+
+/* Modal Image Stuff*/
+.modal,body.modal-open {
+    padding-right: 0!important
+}
+
+body.modal-open {
+    overflow: auto
+}
+
+body.scrollable {
+    overflow-y: auto
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-start;
+  .btn {
+    position: absolute;
+    right: 10px;
+  }
+}
+/* End of modal css*/
+
+
 footer {
 	padding-top: 50px;
 }

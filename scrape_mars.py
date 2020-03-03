@@ -3,17 +3,43 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from pprint import pprint
+import re
+from selenium import webdriver
 
 def scrape():
 
 	mars_scrapped = {}
 
-	# NASA Mars News
-	nasa_news_r = requests.get("https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest").text
-	soup = BeautifulSoup(nasa_news_r, 'html.parser')
 
+	# NASA Mars News
+	# nasa_news_r = requests.get("https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest").text
+	# soup = BeautifulSoup(nasa_news_r, 'html.parser')
+	# news_title = soup.find_all('div', class_="content_title")[0].text.replace("\n","")
+	# news_p = soup.find_all('div', class_="rollover_description_inner")[0].text.replace("\n","")
+
+	# Using Selenium for better/more updated results
+	BASE_URL = "https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest"
+	FILE = "html-selenium.txt"
+	FILE_WAIT = "html-selenium-wait.txt"
+
+	driver = webdriver.Firefox()
+	driver.get(BASE_URL)
+	html = driver.page_source
+
+	with open(FILE, "w+", encoding="utf-8") as f:
+		f.write(html)
+
+	driver.get(BASE_URL)
+	html = driver.page_source
+	driver.implicitly_wait(15)
+	driver.close()
+
+	with open(FILE_WAIT, "w+", encoding="utf-8") as f:
+		f.write(html)
+
+	soup = BeautifulSoup(html, "html.parser")
 	news_title = soup.find_all('div', class_="content_title")[0].text.replace("\n","")
-	news_p = soup.find_all('div', class_="rollover_description_inner")[0].text.replace("\n","")
+	news_p = soup.find_all('div', class_="article_teaser_body")[0].text.replace("\n","")
 
 	mars_scrapped["mars_news_title"] = news_title
 	mars_scrapped["mars_news_p"] = news_p
@@ -33,7 +59,7 @@ def scrape():
 	soup = BeautifulSoup(mars_weather_r, 'html.parser')
 
 	mars_weather = soup.find_all('p', class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text")[0].text.replace("\n"," ")[:-26]
-
+	mars_weather = re.sub(r'[^ ]+\.[^ ]+', '', mars_weather)
 	mars_scrapped["mars_weather"] = mars_weather
 
 
